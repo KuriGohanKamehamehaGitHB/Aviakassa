@@ -25,7 +25,12 @@ class Flight(models.Model):
         related_name='arrivals',
         verbose_name="Куда"
     )
+
     date = models.DateField(verbose_name="Дата вылета")
+
+    # 🔥 Новые поля
+    departure_time = models.TimeField(verbose_name="Время вылета", default="10:00")
+    arrival_time = models.TimeField(verbose_name="Время прилёта", default="12:00")
 
     def __str__(self):
         return f"{self.departure_country} -> {self.arrival_country} ({self.date})"

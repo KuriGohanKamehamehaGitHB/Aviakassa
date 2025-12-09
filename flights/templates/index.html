@@ -32,40 +32,36 @@
 <div class="container">
 
     <div class="search-box">
-        <!-- Форма отправляет GET запрос на эту же страницу -->
         <form method="GET">
             <div class="form-group">
-                <!-- value="{{ request.GET.from }}" сохраняет то, что написал пользователь после поиска -->
                 <input type="text" name="from" placeholder="Страна вылета" value="{{ request.GET.from }}">
             </div>
 
             <div class="form-group">
-                <input type="text" name="to" placeholder="Страна прилёта" value="{{ request.GET.to }}">
+                <input type="text" name="to" placeholder="Страна прибытия" value="{{ request.GET.to }}">
             </div>
 
             <button type="submit">Поиск</button>
         </form>
     </div>
 
-    <!-- СПИСОК ПЕРЕЛЁТОВ -->
     <div class="flight-list">
 
         {% for flight in flights %}
         
         <div class="flight-card">
-            <!-- flag image -->
             <img src="{{ flight.departure_country.flag_url }}" class="flag" alt="Flag">
-
+            <img src="{{flight.arrival_country.flag_url}}" class="flag" alt="Flag"><br>
             <div class="flight-info">
-                <strong>{{ flight.departure_country.name }} → {{ flight.arrival_country.name }}</strong><br>
-                Дата: {{ flight.date }} | Время: {{ flight.time }}
+              {{ flight.departure_country.name }} → {{ flight.arrival_country.name }}<br>
+                Дата: {{ flight.date|date:"d.m.Y" }}<br>
+                Вылет: {{ flight.departure_time|time:"H:i" }}<br>
+                Прибытие: {{ flight.arrival_time|time:"H:i" }}<br>
             </div>
         </div>
 
         {% empty %}
-        <!-- Если список пуст (сработает empty внутри цикла for) -->
         <div class="no-results">Перелётов на сегодня по вашему запросу не найдено</div>
-        
         {% endfor %}
 
     </div>
