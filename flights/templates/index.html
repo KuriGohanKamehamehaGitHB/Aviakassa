@@ -27,7 +27,23 @@
 
 <body>
 
-<header>Авиакасса — Перелёты на сегодня</header>
+    <header>
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto;">
+            <div>Авиакасса</div>
+            
+            <div style="font-size: 16px; font-weight: normal;">
+                {% if user.is_authenticated %}
+                    <!-- Если вошел -->
+                    Привет, <b>{{ user.username }}</b>! | 
+                    <a href="{% url 'logout' %}" style="color: white; text-decoration: underline;">Выйти</a>
+                {% else %}
+                    <!-- Если гость -->
+                    <a href="{% url 'login' %}" style="color: white; text-decoration: none; margin-right: 15px;">Вход</a>
+                    <a href="{% url 'register' %}" style="background: white; color: #2563eb; padding: 5px 10px; border-radius: 4px; text-decoration: none;">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
 
 <div class="container">
 
